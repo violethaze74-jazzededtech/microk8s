@@ -17,6 +17,7 @@ fi
 
 restart_attempt=0
 installed_registry_help=0
+installed_offloading=0
 nic_name="vxlan.calico"
 
 is_nic_available() {
@@ -125,7 +126,9 @@ do
       fi
     fi
 
-    if [ -e "${SNAP_DATA}/var/lock/cni-loaded" ] &&
+    if ! [ -e "${SNAP_DATA}/var/lock/skip-offloading" ] &&
+      [ $installed_offloading -eq 0 ] &&
+      [ -e "${SNAP_DATA}/var/lock/cni-loaded" ] &&
       is_nic_available &&
       ! check_offloading
     then
@@ -134,6 +137,7 @@ do
       sleep 2
       if check_offloading; then
         echo "Offloading successfully disabled on interface $nic_name"
+        installed_offloading=1
       else
         echo "Offloading has not been disabled correctly on interface $nic_name. Please check what happened"
       fi

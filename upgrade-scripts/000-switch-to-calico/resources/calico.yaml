@@ -75,10 +75,16 @@ spec:
           description: BGPConfiguration contains the configuration for any BGP routing.
           properties:
             apiVersion:
-              description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources"
+              description:
+                "APIVersion defines the versioned schema of this representation
+                of an object. Servers should convert recognized schemas to the latest
+                internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources"
               type: string
             kind:
-              description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+              description:
+                "Kind is a string value representing the REST resource this
+                object represents. Servers may infer this from the endpoint the client
+                submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
               type: string
             metadata:
               type: object
@@ -86,71 +92,114 @@ spec:
               description: BGPConfigurationSpec contains the values of the BGP configuration.
               properties:
                 asNumber:
-                  description: "ASNumber is the default AS number used by a node. [Default: 64512]"
+                  description:
+                    "ASNumber is the default AS number used by a node. [Default:
+                    64512]"
                   format: int32
                   type: integer
                 communities:
-                  description: Communities is a list of BGP community values and their arbitrary names for tagging routes.
+                  description:
+                    Communities is a list of BGP community values and their
+                    arbitrary names for tagging routes.
                   items:
-                    description: Community contains standard or large community value and its name.
+                    description:
+                      Community contains standard or large community value
+                      and its name.
                     properties:
                       name:
                         description: Name given to community value.
                         type: string
                       value:
-                        description: Value must be of format `aa:nn` or `aa:nn:mm`. For standard community use `aa:nn` format, where `aa` and `nn` are 16 bit number. For large community use `aa:nn:mm` format, where `aa`, `nn` and `mm` are 32 bit number. Where, `aa` is an AS Number, `nn` and `mm` are per-AS identifier.
+                        description:
+                          Value must be of format `aa:nn` or `aa:nn:mm`.
+                          For standard community use `aa:nn` format, where `aa` and
+                          `nn` are 16 bit number. For large community use `aa:nn:mm`
+                          format, where `aa`, `nn` and `mm` are 32 bit number. Where,
+                          `aa` is an AS Number, `nn` and `mm` are per-AS identifier.
                         pattern: ^(\d+):(\d+)$|^(\d+):(\d+):(\d+)$
                         type: string
                     type: object
                   type: array
                 listenPort:
-                  description: ListenPort is the port where BGP protocol should listen. Defaults to 179
+                  description:
+                    ListenPort is the port where BGP protocol should listen.
+                    Defaults to 179
                   maximum: 65535
                   minimum: 1
                   type: integer
                 logSeverityScreen:
-                  description: "LogSeverityScreen is the log severity above which logs are sent to the stdout. [Default: INFO]"
+                  description:
+                    "LogSeverityScreen is the log severity above which logs
+                    are sent to the stdout. [Default: INFO]"
                   type: string
                 nodeToNodeMeshEnabled:
-                  description: "NodeToNodeMeshEnabled sets whether full node to node BGP mesh is enabled. [Default: true]"
+                  description:
+                    "NodeToNodeMeshEnabled sets whether full node to node
+                    BGP mesh is enabled. [Default: true]"
                   type: boolean
                 prefixAdvertisements:
-                  description: PrefixAdvertisements contains per-prefix advertisement configuration.
+                  description:
+                    PrefixAdvertisements contains per-prefix advertisement
+                    configuration.
                   items:
-                    description: PrefixAdvertisement configures advertisement properties for the specified CIDR.
+                    description:
+                      PrefixAdvertisement configures advertisement properties
+                      for the specified CIDR.
                     properties:
                       cidr:
                         description: CIDR for which properties should be advertised.
                         type: string
                       communities:
-                        description: Communities can be list of either community names already defined in `Specs.Communities` or community value of format `aa:nn` or `aa:nn:mm`. For standard community use `aa:nn` format, where `aa` and `nn` are 16 bit number. For large community use `aa:nn:mm` format, where `aa`, `nn` and `mm` are 32 bit number. Where,`aa` is an AS Number, `nn` and `mm` are per-AS identifier.
+                        description:
+                          Communities can be list of either community names
+                          already defined in `Specs.Communities` or community value
+                          of format `aa:nn` or `aa:nn:mm`. For standard community use
+                          `aa:nn` format, where `aa` and `nn` are 16 bit number. For
+                          large community use `aa:nn:mm` format, where `aa`, `nn` and
+                          `mm` are 32 bit number. Where,`aa` is an AS Number, `nn` and
+                          `mm` are per-AS identifier.
                         items:
                           type: string
                         type: array
                     type: object
                   type: array
                 serviceClusterIPs:
-                  description: ServiceClusterIPs are the CIDR blocks from which service cluster IPs are allocated. If specified, Calico will advertise these blocks, as well as any cluster IPs within them.
+                  description:
+                    ServiceClusterIPs are the CIDR blocks from which service
+                    cluster IPs are allocated. If specified, Calico will advertise these
+                    blocks, as well as any cluster IPs within them.
                   items:
-                    description: ServiceClusterIPBlock represents a single allowed ClusterIP CIDR block.
+                    description:
+                      ServiceClusterIPBlock represents a single allowed ClusterIP
+                      CIDR block.
                     properties:
                       cidr:
                         type: string
                     type: object
                   type: array
                 serviceExternalIPs:
-                  description: ServiceExternalIPs are the CIDR blocks for Kubernetes Service External IPs. Kubernetes Service ExternalIPs will only be advertised if they are within one of these blocks.
+                  description:
+                    ServiceExternalIPs are the CIDR blocks for Kubernetes
+                    Service External IPs. Kubernetes Service ExternalIPs will only be
+                    advertised if they are within one of these blocks.
                   items:
-                    description: ServiceExternalIPBlock represents a single allowed External IP CIDR block.
+                    description:
+                      ServiceExternalIPBlock represents a single allowed
+                      External IP CIDR block.
                     properties:
                       cidr:
                         type: string
                     type: object
                   type: array
                 serviceLoadBalancerIPs:
-                  description: ServiceLoadBalancerIPs are the CIDR blocks for Kubernetes Service LoadBalancer IPs. Kubernetes Service status.LoadBalancer.Ingress IPs will only be advertised if they are within one of these blocks.
+                  description:
+                    ServiceLoadBalancerIPs are the CIDR blocks for Kubernetes
+                    Service LoadBalancer IPs. Kubernetes Service status.LoadBalancer.Ingress
+                    IPs will only be advertised if they are within one of these blocks.
                   items:
-                    description: ServiceLoadBalancerIPBlock represents a single allowed LoadBalancer IP CIDR block.
+                    description:
+                      ServiceLoadBalancerIPBlock represents a single allowed
+                      LoadBalancer IP CIDR block.
                     properties:
                       cidr:
                         type: string
@@ -160,6 +209,12 @@ spec:
           type: object
       served: true
       storage: true
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []
 
 ---
 apiVersion: apiextensions.k8s.io/v1
@@ -262,6 +317,13 @@ spec:
                     and an IPv6 peering if both ends have NodeBGPSpec.IPv6Address specified.  The
                     remote AS number comes from the remote node's NodeBGPSpec.ASNumber,
                     or the global default if that is not set.
+                  type: string
+                sourceAddress:
+                  description:
+                    Specifies whether and how to configure a source address
+                    for the peerings generated by this BGPPeer resource.  Default value
+                    "UseNodeIP" means to configure the node IP as the source address.  "None"
+                    means not to configure a source address.
                   type: string
               type: object
           type: object
@@ -497,6 +559,14 @@ spec:
                     "BPFEnabled, if enabled Felix will use the BPF dataplane.
                     [Default: false]"
                   type: boolean
+                bpfExtToServiceConnmark:
+                  description:
+                    "BPFExtToServiceConnmark in BPF mode, control a 32bit
+                    mark that is set on connections from an external client to a local
+                    service. This mark allows us to control how packets of that connection
+                    are routed within the host and how is routing intepreted by RPF
+                    check. [Default: 0]"
+                  type: integer
                 bpfExternalServiceMode:
                   description:
                     'BPFExternalServiceMode in BPF mode, controls how connections
@@ -556,18 +626,18 @@ spec:
                   type: string
                 defaultEndpointToHostAction:
                   description:
-                    "DefaultEndpointToHostAction controls what happens to
+                    'DefaultEndpointToHostAction controls what happens to
                     traffic that goes from a workload endpoint to the host itself (after
                     the traffic hits the endpoint egress policy). By default Calico
                     blocks traffic from workload endpoints to the host itself with an
-                    iptables DROP action. If you want to allow some or all traffic
+                    iptables "DROP" action. If you want to allow some or all traffic
                     from endpoint to host, set this parameter to RETURN or ACCEPT. Use
-                    RETURN if you have your own rules in the iptables INPUT chain;
-                    Calico will insert its rules at the top of that chain, then RETURN
-                    packets to the INPUT chain once it has completed processing workload
+                    RETURN if you have your own rules in the iptables "INPUT" chain;
+                    Calico will insert its rules at the top of that chain, then "RETURN"
+                    packets to the "INPUT" chain once it has completed processing workload
                     endpoint egress policy. Use ACCEPT to unconditionally accept packets
                     from workloads after processing workload endpoint egress policy.
-                    [Default: Drop]"
+                    [Default: Drop]'
                   type: string
                 deviceRouteProtocol:
                   description:
@@ -596,20 +666,22 @@ spec:
                   type: array
                 failsafeInboundHostPorts:
                   description:
-                    "FailsafeInboundHostPorts is a comma-delimited list of
-                    UDP/TCP ports that Felix will allow incoming traffic to host endpoints
+                    'FailsafeInboundHostPorts is a list of UDP/TCP ports
+                    and CIDRs that Felix will allow incoming traffic to host endpoints
                     on irrespective of the security policy. This is useful to avoid
-                    accidentally cutting off a host with incorrect configuration. Each
-                    port should be specified as tcp:<port-number> or udp:<port-number>.
-                    For back-compatibility, if the protocol is not specified, it defaults
-                    to tcp. To disable all inbound host ports, use the value none.
-                    The default value allows ssh access and DHCP. [Default: tcp:22,
-                    udp:68, tcp:179, tcp:2379, tcp:2380, tcp:6443, tcp:6666, tcp:6667]"
+                    accidentally cutting off a host with incorrect configuration. For
+                    back-compatibility, if the protocol is not specified, it defaults
+                    to "tcp". If a CIDR is not specified, it will allow traffic from
+                    all addresses. To disable all inbound host ports, use the value
+                    none. The default value allows ssh access and DHCP. [Default: tcp:22,
+                    udp:68, tcp:179, tcp:2379, tcp:2380, tcp:6443, tcp:6666, tcp:6667]'
                   items:
                     description:
-                      ProtoPort is combination of protocol and port, both
-                      must be specified.
+                      ProtoPort is combination of protocol, port, and CIDR.
+                      Protocol and port must be specified.
                     properties:
+                      net:
+                        type: string
                       port:
                         type: integer
                       protocol:
@@ -621,22 +693,24 @@ spec:
                   type: array
                 failsafeOutboundHostPorts:
                   description:
-                    "FailsafeOutboundHostPorts is a comma-delimited list
-                    of UDP/TCP ports that Felix will allow outgoing traffic from host
-                    endpoints to irrespective of the security policy. This is useful
-                    to avoid accidentally cutting off a host with incorrect configuration.
-                    Each port should be specified as tcp:<port-number> or udp:<port-number>.
-                    For back-compatibility, if the protocol is not specified, it defaults
-                    to tcp. To disable all outbound host ports, use the value none.
-                    The default value opens etcd's standard ports to ensure that Felix
-                    does not get cut off from etcd as well as allowing DHCP and DNS.
-                    [Default: tcp:179, tcp:2379, tcp:2380, tcp:6443, tcp:6666, tcp:6667,
-                    udp:53, udp:67]"
+                    'FailsafeOutboundHostPorts is a list of UDP/TCP ports
+                    and CIDRs that Felix will allow outgoing traffic from host endpoints
+                    to irrespective of the security policy. This is useful to avoid
+                    accidentally cutting off a host with incorrect configuration. For
+                    back-compatibility, if the protocol is not specified, it defaults
+                    to "tcp". If a CIDR is not specified, it will allow traffic from
+                    all addresses. To disable all outbound host ports, use the value
+                    none. The default value opens etcd''s standard ports to ensure that
+                    Felix does not get cut off from etcd as well as allowing DHCP and
+                    DNS. [Default: tcp:179, tcp:2379, tcp:2380, tcp:6443, tcp:6666,
+                    tcp:6667, udp:53, udp:67]'
                   items:
                     description:
-                      ProtoPort is combination of protocol and port, both
-                      must be specified.
+                      ProtoPort is combination of protocol, port, and CIDR.
+                      Protocol and port must be specified.
                     properties:
+                      net:
+                        type: string
                       port:
                         type: integer
                       protocol:
@@ -1091,7 +1165,7 @@ spec:
                       action.  Both selector-based security Policy and security Profiles
                       reference rules - separated out as a list of rules for both ingress
                       and egress packet matching. \n Each positive match criteria has
-                      a negated version, prefixed with Not. All the match criteria
+                      a negated version, prefixed with \"Not\". All the match criteria
                       within a rule must be satisfied for a packet to match. A single
                       rule can contain the positive and negative version of a match
                       and both must be satisfied for the rule to match."
@@ -1182,9 +1256,9 @@ spec:
                               One negates the set of matched endpoints, the other negates
                               the whole match: \n \tSelector = \"!has(my_label)\" matches
                               packets that are from other Calico-controlled \tendpoints
-                              that do not have the label my_label. \n \tNotSelector
+                              that do not have the label \"my_label\". \n \tNotSelector
                               = \"has(my_label)\" matches packets that are not from
-                              Calico-controlled \tendpoints that do have the label my_label.
+                              Calico-controlled \tendpoints that do have the label \"my_label\".
                               \n The effect is that the latter will accept packets from
                               non-Calico sources whereas the former is limited to packets
                               from Calico-controlled endpoints."
@@ -1412,9 +1486,9 @@ spec:
                               One negates the set of matched endpoints, the other negates
                               the whole match: \n \tSelector = \"!has(my_label)\" matches
                               packets that are from other Calico-controlled \tendpoints
-                              that do not have the label my_label. \n \tNotSelector
+                              that do not have the label \"my_label\". \n \tNotSelector
                               = \"has(my_label)\" matches packets that are not from
-                              Calico-controlled \tendpoints that do have the label my_label.
+                              Calico-controlled \tendpoints that do have the label \"my_label\".
                               \n The effect is that the latter will accept packets from
                               non-Calico sources whereas the former is limited to packets
                               from Calico-controlled endpoints."
@@ -1460,7 +1534,7 @@ spec:
                       action.  Both selector-based security Policy and security Profiles
                       reference rules - separated out as a list of rules for both ingress
                       and egress packet matching. \n Each positive match criteria has
-                      a negated version, prefixed with Not. All the match criteria
+                      a negated version, prefixed with \"Not\". All the match criteria
                       within a rule must be satisfied for a packet to match. A single
                       rule can contain the positive and negative version of a match
                       and both must be satisfied for the rule to match."
@@ -1551,9 +1625,9 @@ spec:
                               One negates the set of matched endpoints, the other negates
                               the whole match: \n \tSelector = \"!has(my_label)\" matches
                               packets that are from other Calico-controlled \tendpoints
-                              that do not have the label my_label. \n \tNotSelector
+                              that do not have the label \"my_label\". \n \tNotSelector
                               = \"has(my_label)\" matches packets that are not from
-                              Calico-controlled \tendpoints that do have the label my_label.
+                              Calico-controlled \tendpoints that do have the label \"my_label\".
                               \n The effect is that the latter will accept packets from
                               non-Calico sources whereas the former is limited to packets
                               from Calico-controlled endpoints."
@@ -1781,9 +1855,9 @@ spec:
                               One negates the set of matched endpoints, the other negates
                               the whole match: \n \tSelector = \"!has(my_label)\" matches
                               packets that are from other Calico-controlled \tendpoints
-                              that do not have the label my_label. \n \tNotSelector
+                              that do not have the label \"my_label\". \n \tNotSelector
                               = \"has(my_label)\" matches packets that are not from
-                              Calico-controlled \tendpoints that do have the label my_label.
+                              Calico-controlled \tendpoints that do have the label \"my_label\".
                               \n The effect is that the latter will accept packets from
                               non-Calico sources whereas the former is limited to packets
                               from Calico-controlled endpoints."
@@ -2013,7 +2087,7 @@ spec:
                     is empty - through the specific interface that has one of the IPs
                     in ExpectedIPs. Therefore, when InterfaceName is empty, at least
                     one expected IP must be specified.  Only external interfaces (such
-                    as eth0) are supported here; it isn't possible for a HostEndpoint
+                    as \"eth0\") are supported here; it isn't possible for a HostEndpoint
                     to protect traffic through a specific local workload interface.
                     \n Note: Only some kinds of policy are implemented for \"*\" HostEndpoints;
                     initially just pre-DNAT policy.  Please check Calico documentation
@@ -2507,6 +2581,11 @@ spec:
                     "LogSeverityScreen is the log severity above which logs
                     are sent to the stdout. [Default: Info]"
                   type: string
+                prometheusMetricsPort:
+                  description:
+                    "PrometheusMetricsPort is the TCP port that the Prometheus
+                    metrics server should bind to. Set to 0 to disable. [Default: 9094]"
+                  type: integer
               required:
                 - controllers
               type: object
@@ -2627,6 +2706,12 @@ spec:
                         "LogSeverityScreen is the log severity above which
                         logs are sent to the stdout. [Default: Info]"
                       type: string
+                    prometheusMetricsPort:
+                      description:
+                        "PrometheusMetricsPort is the TCP port that the Prometheus
+                        metrics server should bind to. Set to 0 to disable. [Default:
+                        9094]"
+                      type: integer
                   required:
                     - controllers
                   type: object
@@ -2685,7 +2770,7 @@ spec:
                       action.  Both selector-based security Policy and security Profiles
                       reference rules - separated out as a list of rules for both ingress
                       and egress packet matching. \n Each positive match criteria has
-                      a negated version, prefixed with Not. All the match criteria
+                      a negated version, prefixed with \"Not\". All the match criteria
                       within a rule must be satisfied for a packet to match. A single
                       rule can contain the positive and negative version of a match
                       and both must be satisfied for the rule to match."
@@ -2776,9 +2861,9 @@ spec:
                               One negates the set of matched endpoints, the other negates
                               the whole match: \n \tSelector = \"!has(my_label)\" matches
                               packets that are from other Calico-controlled \tendpoints
-                              that do not have the label my_label. \n \tNotSelector
+                              that do not have the label \"my_label\". \n \tNotSelector
                               = \"has(my_label)\" matches packets that are not from
-                              Calico-controlled \tendpoints that do have the label my_label.
+                              Calico-controlled \tendpoints that do have the label \"my_label\".
                               \n The effect is that the latter will accept packets from
                               non-Calico sources whereas the former is limited to packets
                               from Calico-controlled endpoints."
@@ -3006,9 +3091,9 @@ spec:
                               One negates the set of matched endpoints, the other negates
                               the whole match: \n \tSelector = \"!has(my_label)\" matches
                               packets that are from other Calico-controlled \tendpoints
-                              that do not have the label my_label. \n \tNotSelector
+                              that do not have the label \"my_label\". \n \tNotSelector
                               = \"has(my_label)\" matches packets that are not from
-                              Calico-controlled \tendpoints that do have the label my_label.
+                              Calico-controlled \tendpoints that do have the label \"my_label\".
                               \n The effect is that the latter will accept packets from
                               non-Calico sources whereas the former is limited to packets
                               from Calico-controlled endpoints."
@@ -3054,7 +3139,7 @@ spec:
                       action.  Both selector-based security Policy and security Profiles
                       reference rules - separated out as a list of rules for both ingress
                       and egress packet matching. \n Each positive match criteria has
-                      a negated version, prefixed with Not. All the match criteria
+                      a negated version, prefixed with \"Not\". All the match criteria
                       within a rule must be satisfied for a packet to match. A single
                       rule can contain the positive and negative version of a match
                       and both must be satisfied for the rule to match."
@@ -3145,9 +3230,9 @@ spec:
                               One negates the set of matched endpoints, the other negates
                               the whole match: \n \tSelector = \"!has(my_label)\" matches
                               packets that are from other Calico-controlled \tendpoints
-                              that do not have the label my_label. \n \tNotSelector
+                              that do not have the label \"my_label\". \n \tNotSelector
                               = \"has(my_label)\" matches packets that are not from
-                              Calico-controlled \tendpoints that do have the label my_label.
+                              Calico-controlled \tendpoints that do have the label \"my_label\".
                               \n The effect is that the latter will accept packets from
                               non-Calico sources whereas the former is limited to packets
                               from Calico-controlled endpoints."
@@ -3375,9 +3460,9 @@ spec:
                               One negates the set of matched endpoints, the other negates
                               the whole match: \n \tSelector = \"!has(my_label)\" matches
                               packets that are from other Calico-controlled \tendpoints
-                              that do not have the label my_label. \n \tNotSelector
+                              that do not have the label \"my_label\". \n \tNotSelector
                               = \"has(my_label)\" matches packets that are not from
-                              Calico-controlled \tendpoints that do have the label my_label.
+                              Calico-controlled \tendpoints that do have the label \"my_label\".
                               \n The effect is that the latter will accept packets from
                               non-Calico sources whereas the former is limited to packets
                               from Calico-controlled endpoints."
@@ -3573,6 +3658,7 @@ rules:
       - create
       - update
       - delete
+      - watch
   # kube-controllers manages hostendpoints.
   - apiGroups: ["crd.projectcalico.org"]
     resources:
@@ -3798,12 +3884,6 @@ spec:
     metadata:
       labels:
         k8s-app: calico-node
-      annotations:
-        # This, along with the CriticalAddonsOnly toleration below,
-        # marks the pod as a critical add-on, ensuring it gets
-        # priority scheduling and that its resources are reserved
-        # if it ever gets evicted.
-        scheduler.alpha.kubernetes.io/critical-pod: ""
     spec:
       nodeSelector:
         kubernetes.io/os: linux
@@ -3827,7 +3907,7 @@ spec:
         # It can be deleted if this is a fresh installation, or if you have already
         # upgraded to use calico-ipam.
         - name: upgrade-ipam
-          image: docker.io/calico/cni:v3.19.1
+          image: docker.io/calico/cni:v3.19.3
           command: ["/opt/cni/bin/calico-ipam", "-upgrade"]
           envFrom:
             - configMapRef:
@@ -3854,7 +3934,7 @@ spec:
         # This container installs the CNI binaries
         # and CNI network config file on each node.
         - name: install-cni
-          image: docker.io/calico/cni:v3.19.1
+          image: docker.io/calico/cni:v3.19.3
           command: ["/opt/cni/bin/install"]
           envFrom:
             - configMapRef:
@@ -3897,7 +3977,7 @@ spec:
         # Adds a Flex Volume Driver that creates a per-pod Unix Domain Socket to allow Dikastes
         # to communicate with Felix over the Policy Sync API.
         - name: flexvol-driver
-          image: docker.io/calico/pod2daemon-flexvol:v3.19.1
+          image: docker.io/calico/pod2daemon-flexvol:v3.19.3
           volumeMounts:
             - name: flexvol-driver-host
               mountPath: /host/driver
@@ -3908,7 +3988,7 @@ spec:
         # container programs network policy and routes on each
         # host.
         - name: calico-node
-          image: docker.io/calico/node:v3.19.1
+          image: docker.io/calico/node:v3.19.3
           envFrom:
             - configMapRef:
                 # Allow KUBERNETES_SERVICE_HOST and KUBERNETES_SERVICE_PORT to be overridden for eBPF mode.
@@ -3991,7 +4071,7 @@ spec:
               command:
                 - /bin/calico-node
                 - -felix-live
-              # - -bird-live
+               # - -bird-live
             periodSeconds: 10
             initialDelaySeconds: 10
             failureThreshold: 6
@@ -4017,6 +4097,16 @@ spec:
               readOnly: false
             - name: policysync
               mountPath: /var/run/nodeagent
+            # For eBPF mode, we need to be able to mount the BPF filesystem at /sys/fs/bpf so we mount in the
+            # parent directory.
+            - name: sysfs
+              mountPath: /sys/fs/
+              # Bidirectional means that, if we mount the BPF filesystem at /sys/fs/bpf it will propagate to the host.
+              # If the host is known to mount that filesystem already then Bidirectional can be omitted.
+              mountPropagation: Bidirectional
+            - name: cni-log-dir
+              mountPath: /var/log/calico/cni
+              readOnly: true
       volumes:
         # Used by calico-node.
         - name: lib-modules
@@ -4032,6 +4122,10 @@ spec:
           hostPath:
             path: /run/xtables.lock
             type: FileOrCreate
+        - name: sysfs
+          hostPath:
+            path: /sys/fs/
+            type: DirectoryOrCreate
         # Used to install CNI.
         - name: cni-bin-dir
           hostPath:
@@ -4039,6 +4133,10 @@ spec:
         - name: cni-net-dir
           hostPath:
             path: /var/snap/microk8s/current/args/cni-network
+        # Used to access CNI logs.
+        - name: cni-log-dir
+          hostPath:
+            path: /var/log/calico/cni
         # Mount in the directory for host-local IPAM allocations. This is
         # used when upgrading from host-local to calico-ipam, and can be removed
         # if not using the upgrade-ipam init container.
@@ -4086,8 +4184,6 @@ spec:
       namespace: kube-system
       labels:
         k8s-app: calico-kube-controllers
-      annotations:
-        scheduler.alpha.kubernetes.io/critical-pod: ""
     spec:
       nodeSelector:
         kubernetes.io/os: linux
@@ -4101,18 +4197,27 @@ spec:
       priorityClassName: system-cluster-critical
       containers:
         - name: calico-kube-controllers
-          image: docker.io/calico/kube-controllers:v3.17.3
+          image: docker.io/calico/kube-controllers:v3.19.3
           env:
             # Choose which controllers to run.
             - name: ENABLED_CONTROLLERS
               value: node
             - name: DATASTORE_TYPE
               value: kubernetes
+          livenessProbe:
+            exec:
+              command:
+                - /usr/bin/check-status
+                - -l
+            periodSeconds: 10
+            initialDelaySeconds: 10
+            failureThreshold: 6
           readinessProbe:
             exec:
               command:
                 - /usr/bin/check-status
                 - -r
+            periodSeconds: 10
 
 ---
 apiVersion: v1

@@ -488,7 +488,6 @@ parts:
       - coreutils
       - curl
       - diffutils
-      - ethtool
       - gawk
       - grep
       - hostname

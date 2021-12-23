@@ -107,6 +107,9 @@ set_service_not_expected_to_start traefik
 
 touch "${SNAP_DATA}/var/lock/ha-cluster"
 touch "${SNAP_DATA}/var/lock/lite.lock"
+# We do not need to perform offloading on the vxlan.calico interface since
+# issue https://github.com/projectcalico/calico/issues/3145 is addressed
+touch "${SNAP_DATA}/var/lock/skip-offloading"
 
 RESOURCES="$SNAP/upgrade-scripts/000-switch-to-calico/resources"
 BACKUP_DIR="$SNAP_DATA/var/tmp/upgrades/000-switch-to-calico"
